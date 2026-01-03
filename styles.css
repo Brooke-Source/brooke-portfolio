@@ -45,7 +45,7 @@ body {
   font-weight: bold;
 }
 
-/* Lightning Background */
+/* Lightning Container */
 .lightning-container {
   position: fixed;
   top: 0;
@@ -53,8 +53,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -1;
-  overflow: visible;
+  z-index: 0;
 }
 
 #lightning-svg {
@@ -62,12 +61,47 @@ body {
   height: 200%;
 }
 
-#lightning-path {
+/* Main Lightning */
+#lightning-main {
   stroke-dasharray: 3000;
   stroke-dashoffset: 3000;
   filter: drop-shadow(0 0 6px #a8c7ff);
+  transition: filter 0.2s ease-out;
 }
 
+/* Branches (hidden until triggered) */
+.branch {
+  opacity: 0;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+}
+
+/* Flash animation */
+.flash {
+  animation: flashOn 0.35s ease-out forwards;
+}
+
+@keyframes flashOn {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 50;
+    filter: drop-shadow(0 0 0px #cfe0ff);
+  }
+  50% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 10px #d6e6ff);
+  }
+  100% {
+    opacity: 0.3;
+    filter: drop-shadow(0 0 4px #bcd4ff);
+  }
+}
+
+/* Main lightning surge */
+.surge {
+  filter: drop-shadow(0 0 14px #d6e6ff);
+}
 /* Footer */
 .footer {
   padding: 80px 20px;

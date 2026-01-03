@@ -6,35 +6,63 @@
   <title>Brooke Brackett | Portfolio</title>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-  <!-- Lightning Background Container -->
-  <div class="lightning-container">
-    <svg id="lightning-svg" viewBox="0 0 400 2000" preserveAspectRatio="none">
-      <path id="lightning-path"
-        d="M50 0 
-           L80 150 
-           L40 300 
-           L120 450 
-           L60 600 
-           L150 750 
-           L90 900 
-           L180 1100 
-           L120 1300 
-           L200 1500 
-           L150 1700 
-           L250 2000"
-        stroke="#a8c7ff"
-        stroke-width="3"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </div>
+<!-- Lightning Background -->
+<div class="lightning-container">
+  <svg id="lightning-svg" viewBox="0 0 400 2000" preserveAspectRatio="none">
+
+    <!-- MAIN LIGHTNING PATH -->
+    <path id="lightning-main"
+      d="M50 0 
+         L80 150 
+         L40 300 
+         L120 450 
+         L60 600 
+         L150 750 
+         L90 900 
+         L180 1100 
+         L120 1300 
+         L200 1500 
+         L150 1700 
+         L250 2000"
+      stroke="#a8c7ff"
+      stroke-width="3"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- BRANCHES (flash at scroll points) -->
+    <path class="branch" id="branch-1"
+      d="M80 150 L140 200"
+      stroke="#cfe0ff" stroke-width="2" fill="none" />
+
+    <path class="branch" id="branch-2"
+      d="M40 300 L10 360"
+      stroke="#cfe0ff" stroke-width="2" fill="none" />
+
+    <path class="branch" id="branch-3"
+      d="M120 450 L180 500"
+      stroke="#cfe0ff" stroke-width="2" fill="none" />
+
+    <path class="branch" id="branch-4"
+      d="M60 600 L20 650"
+      stroke="#cfe0ff" stroke-width="2" fill="none" />
+
+    <path class="branch" id="branch-5"
+      d="M150 750 L210 800"
+      stroke="#cfe0ff" stroke-width="2" fill="none" />
+
+    <path class="branch" id="branch-6"
+      d="M90 900 L40 950"
+      stroke="#cfe0ff" stroke-width="2" fill="none" />
+
+  </svg>
+</div>
 
   <!-- Navigation -->
   <header>
@@ -75,6 +103,6 @@
   </footer>
 
   <!-- Main JavaScript -->
-  <script src="js/main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
