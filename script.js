@@ -21,14 +21,53 @@ function resetBranchStates() {
   autoplayTriggered = Array.from(branches).map(() => false);
 }
 
+// --- Sparkle helpers ---
+const svgEl = document.getElementById("lightning-svg");
+const viewBox = { width: 400, height: 2000 };
+
+function svgPointToPageCoords(pt) {
+  if (!svgEl) return { x: pt.x, y: pt.y };
+  const rect = svgEl.getBoundingClientRect();
+  const x = rect.left + (pt.x / viewBox.width) * rect.width;
+  const y = rect.top + (pt.y / viewBox.height) * rect.height;
+  return { x, y };
+}
+
+function spawnSparks(count = 6, startLength = 0) {
+  if (!mainPath || !svgEl) return;
+  const container = document.querySelector('.lightning-container') || document.body;
+  for (let i = 0; i < count; i++) {
+    // choose a length a bit below the visible draw point so sparks fall down
+    const minL = Math.min(pathLength, Math.max(0, startLength));
+    const maxL = pathLength;
+    const len = minL + Math.random() * (maxL - minL);
+    const pt = mainPath.getPointAtLength(len);
+    const page = svgPointToPageCoords(pt);
+
+    const s = document.createElement('div');
+    s.className = 'spark';
+    s.style.left = `${page.x}px`;
+    s.style.top = `${page.y}px`;
+    // slight random timing to make it look organic
+    s.style.animationDelay = `${Math.random() * 160}ms`;
+    s.style.opacity = '0';
+    container.appendChild(s);
+
+    s.addEventListener('animationstart', () => (s.style.opacity = '1'), { once: true });
+    s.addEventListener('animationend', () => s.remove(), { once: true });
+  }
+}
+
+
 function animateLightning() {
   const scrollTop = window.scrollY;
   const docHeight = document.body.scrollHeight - window.innerHeight;
   const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
 
   // Draw main lightning (guard if element missing)
+  let drawLength = 0;
   if (mainPath && pathLength > 0) {
-    const drawLength = pathLength * scrollPercent;
+    drawLength = pathLength * scrollPercent;
     mainPath.style.strokeDashoffset = pathLength - drawLength;
   }
 
@@ -41,6 +80,7 @@ function animateLightning() {
       // Surge main lightning briefly
       if (mainPath) {
         mainPath.classList.add("surge");
+        spawnSparks(6, drawLength);
         setTimeout(() => mainPath.classList.remove("surge"), 300);
       }
     }
@@ -76,6 +116,7 @@ function startAutoplay({ duration = 1800, pause = 800, loop = true } = {}) {
         branch.classList.add("flash");
         autoplayTriggered[i] = true;
         mainPath.classList.add("surge");
+        spawnSparks(6, drawLength);
         setTimeout(() => mainPath.classList.remove("surge"), 300);
       }
     });

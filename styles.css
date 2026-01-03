@@ -110,6 +110,37 @@ header,
 .surge {
   filter: drop-shadow(0 0 14px #d6e6ff);
 }
+
+/* Sparkle particles that fall along the lightning */
+.spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #cfe0ff 60%);
+  box-shadow: 0 0 12px #d6e6ff, 0 0 4px #9fbfff inset;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: sparkleDown 900ms cubic-bezier(.22,.9,.36,1) forwards;
+}
+
+@keyframes sparkleDown {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+    filter: blur(0px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) translateY(70px) scale(0.8);
+    filter: blur(0.6px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(110px) scale(0.4);
+    filter: blur(1.2px);
+  }
+}
 /* Footer */
 .footer {
   padding: 80px 20px;
