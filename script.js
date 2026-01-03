@@ -4,11 +4,21 @@ const branches = document.querySelectorAll(".branch");
 let pathLength = 0;
 if (mainPath) {
   pathLength = mainPath.getTotalLength();
-  // Use the actual path length so dasharray/offset match correctly
+  // use the actual path length so dasharray/offset match correctly
   mainPath.style.strokeDasharray = pathLength;
   mainPath.style.strokeDashoffset = pathLength;
 } else {
   console.warn("Lightning path not found: #lightning-main");
+}
+
+const checkpoints = [0.08, 0.18, 0.28, 0.38, 0.48, 0.58];
+
+let autoplayActive = false;
+let autoplayTriggered = [];
+
+function resetBranchStates() {
+  branches.forEach((b) => b.classList.remove("flash"));
+  autoplayTriggered = Array.from(branches).map(() => false);
 }
 
 function animateLightning() {
@@ -23,11 +33,10 @@ function animateLightning() {
   }
 
   // Trigger branches at scroll checkpoints
-  const checkpoints = [0.08, 0.18, 0.28, 0.38, 0.48, 0.58];
-
   branches.forEach((branch, i) => {
     if (scrollPercent > checkpoints[i] && !branch.classList.contains("flash")) {
       branch.classList.add("flash");
+      autoplayTriggered[i] = true;
 
       // Surge main lightning briefly
       if (mainPath) {
@@ -38,6 +47,77 @@ function animateLightning() {
   });
 }
 
-window.addEventListener("scroll", animateLightning);
-// Initialize on load
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function startAutoplay({ duration = 1800, pause = 800, loop = true } = {}) {
+  if (!mainPath || pathLength <= 0) return;
+  if (autoplayActive) return;
+  autoplayActive = true;
+  resetBranchStates();
+
+  let startTime = null;
+
+  function step(ts) {
+    if (!autoplayActive) return; // stop if user interacts
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    const progress = Math.min(1, elapsed / duration);
+    const eased = easeOutCubic(progress);
+
+    // draw main path
+    const drawLength = pathLength * eased;
+    mainPath.style.strokeDashoffset = pathLength - drawLength;
+
+    // trigger branches as progress passes checkpoints
+    branches.forEach((branch, i) => {
+      if (eased > checkpoints[i] && !autoplayTriggered[i]) {
+        branch.classList.add("flash");
+        autoplayTriggered[i] = true;
+        mainPath.classList.add("surge");
+        setTimeout(() => mainPath.classList.remove("surge"), 300);
+      }
+    });
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // finish: hold then either loop or stop
+      setTimeout(() => {
+        // fade branches so next loop can flash again
+        branches.forEach((b) => b.classList.remove("flash"));
+        autoplayTriggered = Array.from(branches).map(() => false);
+        startTime = null;
+        if (loop && autoplayActive) requestAnimationFrame(step);
+        else autoplayActive = false;
+      }, pause);
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+function stopAutoplay() {
+  autoplayActive = false;
+}
+
+// Start/stop logic: autoplay when page isn't tall enough to scroll
+window.addEventListener("scroll", () => {
+  // if user scrolls, stop autoplay so scroll-driven animation takes over
+  if (autoplayActive) stopAutoplay();
+  animateLightning();
+});
+
+// stop autoplay on direct user input (wheel/touch)
+window.addEventListener("wheel", stopAutoplay, { passive: true });
+window.addEventListener("touchstart", stopAutoplay, { passive: true });
+
+// initialize
 animateLightning();
+
+const docHeight = document.body.scrollHeight - window.innerHeight;
+// If there is effectively no scrollable area, autoplay the lightning
+if (docHeight <= 0) {
+  startAutoplay({ duration: 1600, pause: 900, loop: true });
+}
