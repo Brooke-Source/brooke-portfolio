@@ -1,18 +1,18 @@
 /* Lighting variables */
 :root {
-  --light-color: #F5E8E0;
-  --accent-light: #F9E7D8;
-  --ambient: #0f1720; /* deep ambient for contrast */
-  --light-rgb: 245,232,224; /* used for translucent flashes */
+  --light-color: #C1A186;
+  --accent-light: #E7C365;
+  --ambient: #696671; /* deep ambient for contrast */
+  --light-rgb: 193,161,134; /* used for translucent flashes */
 }
 
 /* Body */
 body {
   font-family: Arial, sans-serif;
-  background: radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,0.02), transparent 8%),
-              radial-gradient(900px 500px at 80% 80%, rgba(255,255,255,0.01), transparent 12%),
-              linear-gradient(180deg, rgba(15,23,32,0.95), rgba(12,16,20,0.98));
-  color: #ECECEA;
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(var(--light-rgb),0.02), transparent 8%),
+              radial-gradient(900px 500px at 80% 80%, rgba(var(--light-rgb),0.01), transparent 12%),
+              linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(105,102,113,0.98));
+  color: #000000;
   line-height: 1.6;
   display: flex;
   justify-content: left;
@@ -31,7 +31,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(180deg, rgba(249,240,220,0.08), rgba(249,240,220,0.04));
+  background: linear-gradient(180deg, rgba(231,195,101,0.08), rgba(231,195,101,0.04));
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
@@ -54,7 +54,7 @@ header
 
 .nav-links a {
   text-decoration: none;
-  color: #222222;
+  color: #A1C878;
   font-weight: bold;
 }
 
@@ -130,25 +130,25 @@ header
   width: auto;
   height: auto;
   padding: 10px 14px;
-  background: rgba(0,0,0,0.9);
-  color: #fff;
+  background: rgba(180, 190, 190, 0.95);
+  color: #A1C878;
   z-index: 9999;
   border-radius: 6px;
 }
 
 /* Focus-visible for keyboard users */
 a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 3px solid rgba(249,240,220,0.9);
+  outline: 3px solid rgba(var(--light-rgb),0.9);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 /* Ensure interactive text contrasts well on the navbar */
 .navbar {
-  color: #0b0b0b;
+  color: #A1C878;
 }
 .nav-links a {
-  color: #0b0b0b;
+  color: #A1C878;
 }
 /* Lightning sidebar */
 .lightning-sidebar {
@@ -188,7 +188,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   pointer-events: none;
   z-index: 2;
   mix-blend-mode: screen;
-  background: radial-gradient(circle at 40% 20%, rgba(var(--light-rgb),0.32), rgba(255,255,255,0.06) 18%, transparent 35%),
+  background: radial-gradient(circle at 40% 20%, rgba(var(--light-rgb),0.32), rgba(var(--light-rgb),0.06) 18%, transparent 35%),
               linear-gradient(180deg, rgba(var(--light-rgb),0.06), transparent 40%);
   animation: pageFlash 420ms ease-out 0ms 1;
 }
@@ -212,7 +212,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   stroke: var(--light-color);
   stroke-width: 2.4;
   mix-blend-mode: screen;
-  filter: drop-shadow(0 0 6px rgba(178,170,170,0.8));
+  filter: drop-shadow(0 0 6px rgba(var(--light-rgb),0.8));
   transition: filter 0.18s ease-out, stroke-width 160ms ease-out, opacity 220ms ease-out;
 }
 
@@ -232,12 +232,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   0% {
     opacity: 0;
     stroke-dashoffset: 50;
-    filter: drop-shadow(0 0 0px rgba(178,170,170,0.0));
+    filter: drop-shadow(0 0 0px rgba(var(--light-rgb),0.0));
   }
   35% {
     opacity: 1;
     stroke-dashoffset: 0;
-    filter: drop-shadow(0 0 18px rgba(245,232,224,0.9));
+    filter: drop-shadow(0 0 18px rgba(var(--light-rgb),0.9));
   }
   100% {
     opacity: 0;
@@ -248,7 +248,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* Main lightning surge */
 .surge {
-  filter: drop-shadow(0 0 22px rgba(245,232,224,0.95));
+  filter: drop-shadow(0 0 22px rgba(var(--light-rgb),0.95));
   stroke-width: 3.2 !important;
   transition: filter 240ms ease-out, stroke-width 140ms ease-out;
 }
@@ -259,8 +259,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(180,180,180,0.8), rgba(245,210,195,1) 55%);
-  box-shadow: 0 0 18px rgba(245,232,224,0.95), 0 0 6px rgba(245,210,195,0.8) inset;
+  background: radial-gradient(circle at 30% 30%, rgba(105,102,113,0.8), rgba(var(--light-rgb),1) 55%);
+  box-shadow: 0 0 18px rgba(var(--light-rgb),0.95), 0 0 6px rgba(var(--light-rgb),0.8) inset;
   pointer-events: none;
   transform: translate(-50%, -50%);
   animation: sparkleDown 760ms cubic-bezier(.22,.9,.36,1) forwards;
@@ -287,5 +287,5 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .footer {
   padding: 80px 20px;
   text-align: center;
-  background: #F9F0DC;
+  background: #C75D46;
 }
