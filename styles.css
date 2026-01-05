@@ -29,14 +29,24 @@ body {
 /* Navigation */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 20px 20px 20px 0px;
+  padding: 20px 0px 20px 108px;
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
   z-index: 10;
   width: 100%;
+  gap: 300px;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #A1C878;
+  cursor: pointer;
 }
 
 /* Ensure page content sits above the lightning SVG */
@@ -65,27 +75,20 @@ header,
   align-items: flex-start;
 }
 
-@media (max-width: 768px) {
-  .lightning-sidebar {
-    width: 100%;
-    position: relative;
-    height: auto;
-  }
-
-  .content-area {
-    width: 100%;
-    align-items: flex-start;
-  }
-
-  .page-layout {
-    flex-direction: column;
-  }
-}
-
 /* Mobile accessibility improvements */
 /* Larger type, bigger tap targets, hide non-essential visuals on narrow screens */
 @media (max-width: 768px) {
   html { font-size: 18px; }
+
+  .navbar {
+    gap: 20px; /* reduce huge desktop gap */
+    padding-left: 20px; /* optional: tighten left spacing */
+  }
+
+   .hamburger {
+    display: block;
+    margin-left: auto;
+  }
 
   .nav-links {
     flex-wrap: wrap;
@@ -100,6 +103,22 @@ header,
     font-size: 1rem;
     border-radius: 6px;
   }
+
+  .nav-links {
+  display: none;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.nav-links.open {
+  display: flex;
+}
 
   .section {
     padding: 20px 16px;
