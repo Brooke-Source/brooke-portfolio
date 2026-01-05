@@ -1,9 +1,10 @@
 /* Lighting variables */
 :root {
-  --light-color: #C1A186;
-  --accent-light: #E7C365;
-  --ambient: #696671; /* deep ambient for contrast */
-  --light-rgb: 193,161,134; /* used for translucent flashes */
+  --light-color: #E7F4D9; /* pale lighting tint */
+  --accent-light: #C1E08A; /* brighter green accent */
+  --ambient: #213425; /* deep green for contrast */
+  --light-rgb: 231,244,217; /* used for translucent flashes */
+  --branch-color: #8FBF5A; /* branch stroke color */
 }
 
 /* Body */
@@ -221,6 +222,11 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   opacity: 0;
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
+}
+
+/* Class to control branch stroke color centrally */
+.branch-stroke {
+  stroke: var(--branch-color);
 }
 
 /* Flash animation: peaks then fades back to hidden so side branches disappear */
