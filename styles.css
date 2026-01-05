@@ -32,6 +32,28 @@ body {
   padding-bottom: 0;
 }
 
+.about-header {
+  display: flex;
+  align-items: center; /* vertically align image + text */
+  gap: 90px;           /* space between header and image */
+  margin-bottom: 2px; /* space before the paragraph */
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(var(--light-rgb),0.02), transparent 8%),
+              radial-gradient(900px 500px at 80% 80%, rgba(var(--light-rgb),0.01), transparent 12%),
+              linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(105,102,113,0.98));
+ border-radius: 8px;
+ padding: 12px 24px;
+}
+
+.about-header img {
+  width: auto;         /* adjust size to taste */
+  height: 300px;        /* maintain aspect ratio */
+  border-radius: 8px;  /* optional: soften corners */
+  margin-left: 162px; /* align image to the right */
+}
+
+
+
+
 /* Navigation */
 .navbar {
   display: flex;
