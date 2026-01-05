@@ -14,7 +14,6 @@ body {
               linear-gradient(180deg, rgba(15,23,32,0.95), rgba(12,16,20,0.98));
   color: #ECECEA;
   line-height: 1.6;
-  
   display: flex;
   justify-content: left;
 }
@@ -40,7 +39,7 @@ body {
 }
 
 /* Ensure page content sits above the lightning SVG */
-header,
+header
 .section,
 .footer {
   position: relative;
@@ -80,6 +79,76 @@ header,
   .page-layout {
     flex-direction: column;
   }
+}
+
+/* Mobile accessibility improvements */
+/* Larger type, bigger tap targets, hide non-essential visuals on narrow screens */
+@media (max-width: 768px) {
+  html { font-size: 18px; }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    min-height: 44px; /* comfortable touch target */
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+
+  .section {
+    padding: 20px 16px;
+  }
+}
+
+/* Remove lightning on small phones to reduce distraction and improve performance */
+@media (max-width: 600px) {
+  .lightning-container,
+  .lightning-sidebar {
+    display: none !important;
+  }
+}
+
+/* Skip link: hidden by default, visible when focused */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus,
+.skip-link:active {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  width: auto;
+  height: auto;
+  padding: 10px 14px;
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  z-index: 9999;
+  border-radius: 6px;
+}
+
+/* Focus-visible for keyboard users */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid rgba(249,240,220,0.9);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Ensure interactive text contrasts well on the navbar */
+.navbar {
+  color: #0b0b0b;
+}
+.nav-links a {
+  color: #0b0b0b;
 }
 /* Lightning sidebar */
 .lightning-sidebar {
