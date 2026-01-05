@@ -168,3 +168,10 @@ const docHeight = document.body.scrollHeight - window.innerHeight;
 if (docHeight <= 0) {
   startAutoplay({ duration: 1600, pause: 900, loop: true });
 }
+
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});

@@ -17,6 +17,7 @@ body {
   line-height: 1.6;
   display: block;
   justify-content: left;
+  margin: 0px;
 }
 
 /* Sections */
@@ -26,12 +27,17 @@ body {
   margin: 0 auto;
 }
 
+.section:last-of-type > *:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 /* Navigation */
 .navbar {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px 0px 20px 108px;
+  padding: 20px 0px 20px 0px;
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
@@ -82,7 +88,7 @@ header,
 
   .navbar {
     gap: 20px; /* reduce huge desktop gap */
-    padding-left: 20px; /* optional: tighten left spacing */
+    padding-left: 2px; /* optional: tighten left spacing */
   }
 
    .hamburger {
@@ -309,8 +315,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   }
 }
 /* Footer */
-.footer {
-  padding: 80px 20px;
+.footer {padding: 5px;
   text-align: center;
   width: 100%;
   background: #E7F4D9;
