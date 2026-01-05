@@ -65,6 +65,22 @@ header,
   align-items: flex-start;
 }
 
+@media (max-width: 768px) {
+  .lightning-sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+  }
+
+  .content-area {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .page-layout {
+    flex-direction: column;
+  }
+}
 /* Lightning sidebar */
 .lightning-sidebar {
   width: 400px; /* adjust to taste */
@@ -91,7 +107,7 @@ header,
 /* Main content column */
 .content-area {
   flex: 1;
-  padding-left: 1px; /* spacing between lightning + content */
+  padding-left: 0; /* Remove spacing between lightning + content */
 }
 
 /* Full-page flash overlay that appears when the SVG has a surge/flash.
