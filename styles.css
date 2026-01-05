@@ -5,11 +5,21 @@
   box-sizing: border-box;
 }
 
+/* Lighting variables */
+:root {
+  --light-color: #F5E8E0;
+  --accent-light: #F9E7D8;
+  --ambient: #0f1720; /* deep ambient for contrast */
+  --light-rgb: 245,232,224; /* used for translucent flashes */
+}
+
 /* Body */
 body {
   font-family: Arial, sans-serif;
-  background: transparent;
-  color: #222222;
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,0.02), transparent 8%),
+              radial-gradient(900px 500px at 80% 80%, rgba(255,255,255,0.01), transparent 12%),
+              linear-gradient(180deg, rgba(15,23,32,0.95), rgba(12,16,20,0.98));
+  color: #ECECEA;
   line-height: 1.6;
 }
 
@@ -26,7 +36,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: #F9F0DCcc;
+  background: linear-gradient(180deg, rgba(249,240,220,0.08), rgba(249,240,220,0.04));
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
@@ -64,6 +74,27 @@ header,
   z-index: 0;
 }
 
+/* Full-page flash overlay that appears when the SVG has a surge/flash.
+   Uses the :has() selector so the overlay follows the lightning state. */
+.lightning-container:has(.surge)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle at 40% 20%, rgba(var(--light-rgb),0.32), rgba(255,255,255,0.06) 18%, transparent 35%),
+              linear-gradient(180deg, rgba(var(--light-rgb),0.06), transparent 40%);
+  animation: pageFlash 420ms ease-out 0ms 1;
+}
+
+@keyframes pageFlash {
+  0% { opacity: 0; filter: blur(0px); }
+  30% { opacity: 1; filter: blur(2px); }
+  70% { opacity: 0.5; filter: blur(1px); }
+  100% { opacity: 0; filter: blur(0px); }
+}
+
 #lightning-svg {
   width: 100%;
   height: 200%;
@@ -73,8 +104,11 @@ header,
 #lightning-main {
   stroke-dasharray: 3000;
   stroke-dashoffset: 3000;
-  filter: drop-shadow(0 0 6px #B2AAAA);
-  transition: filter 0.2s ease-out;
+  stroke: var(--light-color);
+  stroke-width: 2.4;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 6px rgba(178,170,170,0.8));
+  transition: filter 0.18s ease-out, stroke-width 160ms ease-out, opacity 220ms ease-out;
 }
 
 /* Branches (hidden until triggered) */
@@ -84,31 +118,34 @@ header,
   stroke-dashoffset: 50;
 }
 
-/* Flash animation */
+/* Flash animation: peaks then fades back to hidden so side branches disappear */
 .flash {
-  animation: flashOn 0.35s ease-out forwards;
+  animation: flashOn 420ms cubic-bezier(.22,.9,.36,1) both;
 }
 
 @keyframes flashOn {
   0% {
     opacity: 0;
     stroke-dashoffset: 50;
-    filter: drop-shadow(0 0 0px #B2AAAA);
+    filter: drop-shadow(0 0 0px rgba(178,170,170,0.0));
   }
-  50% {
+  35% {
     opacity: 1;
     stroke-dashoffset: 0;
-    filter: drop-shadow(0 0 10px #B2AAAA);
+    filter: drop-shadow(0 0 18px rgba(245,232,224,0.9));
   }
   100% {
-    opacity: 0.3;
-    filter: drop-shadow(0 0 4px #B2AAAA);
+    opacity: 0;
+    stroke-dashoffset: 50;
+    filter: drop-shadow(0 0 0px rgba(178,170,170,0.0));
   }
 }
 
 /* Main lightning surge */
 .surge {
-  filter: drop-shadow(0 0 14px #B2AAAA);
+  filter: drop-shadow(0 0 22px rgba(245,232,224,0.95));
+  stroke-width: 3.2 !important;
+  transition: filter 240ms ease-out, stroke-width 140ms ease-out;
 }
 
 /* Sparkle particles that fall along the lightning */
@@ -117,28 +154,28 @@ header,
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #74838A, #F5D2C7 60%);
-  box-shadow: 0 0 12px #B2AAAA, 0 0 4px #F5D2C7 inset;
+  background: radial-gradient(circle at 30% 30%, rgba(180,180,180,0.8), rgba(245,210,195,1) 55%);
+  box-shadow: 0 0 18px rgba(245,232,224,0.95), 0 0 6px rgba(245,210,195,0.8) inset;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  animation: sparkleDown 900ms cubic-bezier(.22,.9,.36,1) forwards;
+  animation: sparkleDown 760ms cubic-bezier(.22,.9,.36,1) forwards;
 }
 
 @keyframes sparkleDown {
   0% {
     opacity: 1;
     transform: translate(-50%, -50%) translateY(0) scale(1);
-    filter: blur(0px);
+    filter: blur(0px) saturate(120%);
   }
   70% {
     opacity: 0.9;
     transform: translate(-50%, -50%) translateY(70px) scale(0.8);
-    filter: blur(0.6px);
+    filter: blur(0.7px);
   }
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) translateY(110px) scale(0.4);
-    filter: blur(1.2px);
+    filter: blur(1.2px) saturate(90%);
   }
 }
 /* Footer */

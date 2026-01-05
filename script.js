@@ -1,6 +1,9 @@
 const mainPath = document.getElementById("lightning-main");
 const branches = document.querySelectorAll(".branch");
 
+// How long the branch flash CSS runs (ms). Keep synced with CSS `flashOn` duration.
+const BRANCH_FLASH_MS = 420;
+
 let pathLength = 0;
 if (mainPath) {
   pathLength = mainPath.getTotalLength();
@@ -75,6 +78,8 @@ function animateLightning() {
   branches.forEach((branch, i) => {
     if (scrollPercent > checkpoints[i] && !branch.classList.contains("flash")) {
       branch.classList.add("flash");
+      // ensure the flash class is removed after the animation so the streaks disappear
+      setTimeout(() => branch.classList.remove("flash"), BRANCH_FLASH_MS);
       autoplayTriggered[i] = true;
 
       // Surge main lightning briefly
@@ -114,6 +119,7 @@ function startAutoplay({ duration = 1800, pause = 800, loop = true } = {}) {
     branches.forEach((branch, i) => {
       if (eased > checkpoints[i] && !autoplayTriggered[i]) {
         branch.classList.add("flash");
+        setTimeout(() => branch.classList.remove("flash"), BRANCH_FLASH_MS);
         autoplayTriggered[i] = true;
         mainPath.classList.add("surge");
         spawnSparks(6, drawLength);
