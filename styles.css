@@ -4,7 +4,7 @@
   --accent-light: #C1E08A; /* brighter green accent */
   --ambient: #213425; /* deep green for contrast */
   --light-rgb: 231,244,217; /* used for translucent flashes */
-  --branch-color: #8FBF5A; /* branch stroke color */
+  --branch-color: #ffffff; /* branch stroke color */
 }
 
 /* Body */
@@ -21,7 +21,7 @@ body {
 
 /* Sections */
 .section {
-  padding: 0px 20px;
+  padding: 0px;
   max-width: 900px;
   margin: 0 auto;
 }
@@ -31,12 +31,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background: linear-gradient(180deg, rgba(231,195,101,0.08), rgba(231,195,101,0.04));
+  padding: 20px 20px 20px 0px;
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
   z-index: 10;
+  width: 100%;
 }
 
 /* Ensure page content sits above the lightning SVG */
@@ -74,7 +74,7 @@ header
 
   .content-area {
     width: 100%;
-    padding-left: 0;
+    align-items: flex-start;
   }
 
   .page-layout {
