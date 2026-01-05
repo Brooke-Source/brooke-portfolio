@@ -15,7 +15,7 @@ body {
               linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(105,102,113,0.98));
   color: #000000;
   line-height: 1.6;
-  display: flex;
+  display: block;
   justify-content: left;
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 /* Ensure page content sits above the lightning SVG */
-header
+header,
 .section,
 .footer {
   position: relative;
@@ -293,5 +293,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .footer {
   padding: 80px 20px;
   text-align: center;
-  background: #C75D46;
+  width: 100%;
+  background: #E7F4D9;
+  position: relative;
+  z-index: 1;
 }
