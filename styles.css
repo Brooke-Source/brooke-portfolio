@@ -71,10 +71,23 @@ body {
   100% { transform: translateX(0); opacity: 1; }
 }
 
+/* Slide-in from left (for hero) */
+@keyframes slideInFromLeft {
+  0% { transform: translateX(-28px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
 /* Base: about starts off to the right and invisible */
 #about {
   transform: translateX(28px);
   opacity: 0;
+}
+
+/* Hero: slide in from left on page load with same timing as #about */
+#hero {
+  transform: translateX(-28px);
+  opacity: 0;
+  animation: slideInFromLeft 900ms ease-out 60ms both;
 }
 
 /* Desktop: animate on page load */
