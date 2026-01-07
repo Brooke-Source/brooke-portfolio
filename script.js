@@ -223,3 +223,27 @@ if (hamburger && navLinks) {
     if (isMobile()) startObserver(); else stopObserver();
   });
 })();
+
+// Scroll reveal for the first <p> after #about (slides in from left)
+(function() {
+  const target = document.querySelector('#about > p:first-of-type');
+  if (!target) return;
+
+  const options = { root: null, threshold: 0.02, rootMargin: '0px 0px -120px 0px' };
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view-left');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  // quick-check: if already near viewport, reveal immediately
+  const rect = target.getBoundingClientRect();
+  if (rect.top <= window.innerHeight * 0.9) {
+    target.classList.add('in-view-left');
+  } else {
+    io.observe(target);
+  }
+})();
