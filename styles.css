@@ -16,7 +16,6 @@ body {
   color: #000000;
   line-height: 1.6;
   display: block;
-  justify-content: left;
   margin: 0px;
 }
 
@@ -57,11 +56,6 @@ body {
   border-radius: 8px;
 }
 
-.about-image-block img {
-  height: 300px;
-  border-radius: 8px;
-}
-
 .about-quote {
   font-style: italic;
   font-size: 1.1rem;
@@ -74,15 +68,15 @@ body {
 /* Navigation */
 .navbar {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 0px 20px 0px;
+  padding: 20px 0;
   backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
   z-index: 10;
   width: 100%;
-  gap: 300px;
+  gap: 20px;
 }
 
 .hamburger {
