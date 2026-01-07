@@ -264,7 +264,8 @@ if (hamburger && navLinks) {
 
   // collect all <p> elements that are document-following the #about element
   const allPs = Array.from(document.querySelectorAll('p'));
-  const targets = allPs.filter(p => (aboutEl.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0);
+  // exclude paragraphs that are inside the footer so footer content isn't affected
+  const targets = allPs.filter(p => (aboutEl.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0 && !p.closest('footer'));
   if (!targets.length) return;
 
   // assign slide direction classes (left/right alternating) and observe
@@ -322,4 +323,54 @@ if (hamburger && navLinks) {
 
   window.addEventListener('load', startObserver);
   window.addEventListener('DOMContentLoaded', startObserver);
+})();
+
+
+// Trigger footer reveal when the last content <p> before the footer enters viewport
+(function() {
+  const footer = document.querySelector('footer.footer');
+  if (!footer) return;
+
+  const aboutEl = document.getElementById('about');
+  const allPs = Array.from(document.querySelectorAll('p'));
+
+  // Find candidate paragraphs that are after #about and before the footer
+  let candidates = [];
+  if (aboutEl) {
+    candidates = allPs.filter(p => (
+      (aboutEl.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0 &&
+      (p.compareDocumentPosition(footer) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0
+    ));
+  } else {
+    candidates = allPs.filter(p => (p.compareDocumentPosition(footer) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0);
+  }
+
+  const lastBeforeFooter = candidates.length ? candidates[candidates.length - 1] : null;
+
+  const options = { root: null, threshold: 0.05, rootMargin: '0px 0px -80px 0px' };
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        footer.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  if (lastBeforeFooter) {
+    const rect = lastBeforeFooter.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      footer.classList.add('in-view');
+    } else {
+      io.observe(lastBeforeFooter);
+    }
+  } else {
+    // fallback: observe the footer itself
+    const rect = footer.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      footer.classList.add('in-view');
+    } else {
+      io.observe(footer);
+    }
+  }
 })();

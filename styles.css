@@ -90,25 +90,7 @@ body {
   animation: slideInFromLeft 900ms ease-out 60ms both;
 }
 
-/* First paragraph after #about: start off-left and animate on scroll */
-#about > p:first-of-type {
-  transform: translateX(-28px);
-  opacity: 0;
-}
 
-#about > p:first-of-type.in-view-left {
-  animation: slideInFromLeft 900ms ease-out 60ms both;
-}
-
-/* Second paragraph after #about: start off-right and animate on scroll */
-#about > p:nth-of-type(2) {
-  transform: translateX(28px);
-  opacity: 0;
-}
-
-#about > p:nth-of-type(2).in-view-right {
-  animation: slideInFromRight 900ms ease-out 60ms both;
-}
 
 /* Generic reusable paragraph slide animations for elements after #about */
 .p-slide-left { transform: translateX(-28px); opacity: 0; }
@@ -430,10 +412,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   }
 }
 /* Footer */
-.footer {padding: 5px;
+.footer {
+  padding: 5px;
   text-align: center;
   width: 100%;
   background: #E7F4D9;
   position: relative;
   z-index: 1;
+  transform: translateX(-28px);
+  opacity: 0;
+}
+
+/* When the footer is marked in-view, slide it in from the left */
+.footer.in-view {
+  animation: slideInFromLeft 900ms ease-out 60ms both;
 }
