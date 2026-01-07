@@ -124,7 +124,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
   position: sticky;
   top: 0;
   width: 100%;
@@ -169,6 +168,7 @@ header,
   list-style: none;
   display: flex;
   gap: 20px;
+  padding-right: 20px;
 }
 
 .nav-links a {
