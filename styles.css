@@ -102,6 +102,22 @@ body {
   color:#A1C878;
 }
 
+/* Header slide-down on page load */
+header {
+  transform: translateY(-16px);
+  opacity: 0;
+  animation: headerSlideDown 900ms ease-out 60ms both;
+}
+
+@keyframes headerSlideDown {
+  0% { transform: translateY(-16px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header { animation: none !important; transform: none !important; opacity: 1 !important; }
+}
+
 .hamburger {
   display: none;
   font-size: 2rem;
