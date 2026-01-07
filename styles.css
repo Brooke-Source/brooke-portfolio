@@ -170,6 +170,24 @@ header,
   }
 }
 
+@media (max-width: 700px) {
+  .about-row {
+    flex-direction: column;   /* stack text + image */
+    align-items: center;      /* center everything */
+    text-align: center;       /* optional: centers the quote */
+  }
+
+  .about-text-block {
+    max-width: 100%;          /* let text breathe on mobile */
+  }
+
+  .about-image-block img {
+    height: auto;
+    width: 80%;               /* responsive image size */
+    max-width: 300px;         /* keeps it from getting too big */
+  }
+}
+
 /* Remove lightning on small phones to reduce distraction and improve performance */
 @media (max-width: 600px) {
   .lightning-container,
