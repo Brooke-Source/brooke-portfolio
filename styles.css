@@ -77,6 +77,13 @@ body {
   100% { transform: translateX(0); opacity: 1; }
 }
 
+/* Footer: gentle fade + slide from left */
+@keyframes footerFadeInLeft {
+  0% { transform: translateX(-20px); opacity: 0; }
+  60% { opacity: 0.6; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
 /* Base: about starts off to the right and invisible */
 #about {
   transform: translateX(28px);
@@ -425,5 +432,5 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* When the footer is marked in-view, slide it in from the left */
 .footer.in-view {
-  animation: slideInFromLeft 900ms ease-out 60ms both;
+  animation: footerFadeInLeft 900ms cubic-bezier(.2,.9,.3,1) 60ms both;
 }
