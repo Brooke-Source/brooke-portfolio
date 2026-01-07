@@ -76,6 +76,7 @@ body {
   width: 100%;
   gap: 20px;
   z-index: 9999; /* or any high number */
+  color:#A1C878;
 }
 
 .hamburger {
@@ -130,34 +131,33 @@ header,
     margin-left: auto;
   }
 
+  /* keep existing background and spacing; single slide-from-right rule */
+  .navbar { position: relative; }
+  .hamburger { position: relative; z-index: 1002; }
+
   .nav-links {
-    flex-wrap: wrap;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
     gap: 12px;
+    background: #574368; /* unchanged */
+    padding: 20px;       /* unchanged */
+    position: absolute;
+    top: 70px;           /* unchanged */
+    right: 0;            /* flush with the page edge */
+    border-radius: 8px;
+    transform: translateX(18px); /* start slightly to the right */
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 520ms cubic-bezier(.2,.9,.3,1), opacity 480ms ease;
+    z-index: 1000; /* below hamburger */
   }
 
-  .nav-links a {
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 14px;
-    min-height: 44px; /* comfortable touch target */
-    font-size: 1rem;
-    border-radius: 6px;
+  .nav-links.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
   }
-
-  .nav-links {
-  display: none;
-  flex-direction: column;
-  background: #574368;
-  padding: 20px;
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  border-radius: 8px;
-}
-
-.nav-links.open {
-  display: flex;
-}
 }
 
 @media (max-width: 768px) {
