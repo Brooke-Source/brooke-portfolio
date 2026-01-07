@@ -224,26 +224,35 @@ if (hamburger && navLinks) {
   });
 })();
 
-// Scroll reveal for the first <p> after #about (slides in from left)
+// Scroll reveal for the first <p> after #about (slides in from left) on all screens
 (function() {
   const target = document.querySelector('#about > p:first-of-type');
   if (!target) return;
 
-  const options = { root: null, threshold: 0.02, rootMargin: '0px 0px -120px 0px' };
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view-left');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, options);
+  let observer = null;
+  function startObserver() {
+    if (observer) return;
+    const options = { root: null, threshold: 0.02, rootMargin: '0px 0px -120px 0px' };
+    observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view-left');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, options);
 
-  // quick-check: if already near viewport, reveal immediately
-  const rect = target.getBoundingClientRect();
-  if (rect.top <= window.innerHeight * 0.9) {
-    target.classList.add('in-view-left');
-  } else {
-    io.observe(target);
+    // quick-check: if already near viewport, reveal immediately
+    const rect = target.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      target.classList.add('in-view-left');
+      return;
+    }
+
+    observer.observe(target);
   }
+
+  window.addEventListener('load', startObserver);
+  // also attempt on DOMContentLoaded in case load fires later
+  window.addEventListener('DOMContentLoaded', startObserver);
 })();
