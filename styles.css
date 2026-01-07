@@ -32,27 +32,44 @@ body {
   padding-bottom: 0;
 }
 
-.about-header {
-  display: flex;
-  align-items: center; /* vertically align image + text */
-  gap: 90px;           /* space between header and image */
-  margin-bottom: 2px; /* space before the paragraph */
+.about-row-bg {
   background: radial-gradient(1200px 600px at 20% 10%, rgba(var(--light-rgb),0.02), transparent 8%),
               radial-gradient(900px 500px at 80% 80%, rgba(var(--light-rgb),0.01), transparent 12%),
               linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(105,102,113,0.98));
- border-radius: 8px;
- padding: 12px 24px;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
 }
 
-.about-header img {
-  width: auto;         /* adjust size to taste */
-  height: 300px;        /* maintain aspect ratio */
-  border-radius: 8px;  /* optional: soften corners */
-  margin-left: 162px; /* align image to the right */
+.about-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
 }
 
+.about-text-block {
+  flex: 1;
+  max-width: 550px;
+}
 
+.about-image-block img {
+  height: 300px;
+  border-radius: 8px;
+}
 
+.about-image-block img {
+  height: 300px;
+  border-radius: 8px;
+}
+
+.about-quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #444;
+  max-width: 650px;
+}
 
 /* Navigation */
 .navbar {
