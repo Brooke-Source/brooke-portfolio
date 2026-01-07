@@ -181,3 +181,45 @@ if (hamburger && navLinks) {
     hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 }
+
+// Mobile scroll reveal for #about
+(function() {
+  const aboutEl = document.getElementById('about');
+  if (!aboutEl) return;
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  let observer = null;
+  function startObserver() {
+    if (!isMobile()) return;
+    if (observer) return;
+    // rootMargin pulls the trigger earlier (starts revealing before fully in view)
+    const options = { root: null, threshold: 0.02, rootMargin: '0px 0px -120px 0px' };
+    observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          aboutEl.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    // quick-check: if the element is already near the viewport, reveal immediately
+    const rect = aboutEl.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      aboutEl.classList.add('in-view');
+      return;
+    }
+
+    observer.observe(aboutEl);
+  }
+
+  function stopObserver() {
+    if (observer) { observer.disconnect(); observer = null; }
+  }
+
+  window.addEventListener('load', startObserver);
+  window.addEventListener('resize', () => {
+    if (isMobile()) startObserver(); else stopObserver();
+  });
+})();

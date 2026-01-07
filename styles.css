@@ -65,22 +65,27 @@ body {
   max-width: 650px;
 }
 
-/* Slide-in on load: about section */
+/* Slide-in animation keyframes */
+@keyframes slideInFromRight {
+  0% { transform: translateX(28px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Base: about starts off to the right and invisible */
 #about {
   transform: translateX(28px);
   opacity: 0;
-  animation: slideInFromRight 900ms ease-out 200ms both;
 }
 
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(28px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+/* Desktop: animate on page load */
+@media (min-width: 769px) {
+  #about { animation: slideInFromRight 900ms ease-out 200ms both; }
+}
+
+/* Mobile: animate only when .in-view is added (scroll reveal) */
+  @media (max-width: 768px) {
+  /* reduce delay so mobile reveal feels snappier */
+  #about.in-view { animation: slideInFromRight 900ms ease-out 60ms both; }
 }
 
 /* Navigation */
