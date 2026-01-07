@@ -256,3 +256,35 @@ if (hamburger && navLinks) {
   // also attempt on DOMContentLoaded in case load fires later
   window.addEventListener('DOMContentLoaded', startObserver);
 })();
+
+// Scroll reveal for the second <p> after #about (slides in from right) on all screens
+(function() {
+  const target = document.querySelector('#about > p:nth-of-type(2)');
+  if (!target) return;
+
+  let observer = null;
+  function startObserver() {
+    if (observer) return;
+    const options = { root: null, threshold: 0.02, rootMargin: '0px 0px -120px 0px' };
+    observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view-right');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    // quick-check: if already near viewport, reveal immediately
+    const rect = target.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      target.classList.add('in-view-right');
+      return;
+    }
+
+    observer.observe(target);
+  }
+
+  window.addEventListener('load', startObserver);
+  window.addEventListener('DOMContentLoaded', startObserver);
+})();

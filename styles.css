@@ -100,6 +100,16 @@ body {
   animation: slideInFromLeft 900ms ease-out 60ms both;
 }
 
+/* Second paragraph after #about: start off-right and animate on scroll */
+#about > p:nth-of-type(2) {
+  transform: translateX(28px);
+  opacity: 0;
+}
+
+#about > p:nth-of-type(2).in-view-right {
+  animation: slideInFromRight 900ms ease-out 60ms both;
+}
+
 /* Desktop: animate on page load */
 @media (min-width: 769px) {
   #about { animation: slideInFromRight 900ms ease-out 200ms both; }
