@@ -257,6 +257,41 @@ if (hamburger && navLinks) {
   window.addEventListener('DOMContentLoaded', startObserver);
 })();
 
+// Observe all <p> elements that appear after the #about element in the DOM
+(function() {
+  const aboutEl = document.getElementById('about');
+  if (!aboutEl) return;
+
+  // collect all <p> elements that are document-following the #about element
+  const allPs = Array.from(document.querySelectorAll('p'));
+  const targets = allPs.filter(p => (aboutEl.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0);
+  if (!targets.length) return;
+
+  // assign slide direction classes (left/right alternating) and observe
+  const options = { root: null, threshold: 0.05, rootMargin: '0px 0px -80px 0px' };
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  targets.forEach((p, i) => {
+    // alternate: even -> left, odd -> right (1st after about is index 0 -> left)
+    p.classList.add(i % 2 === 0 ? 'p-slide-left' : 'p-slide-right');
+
+    // quick-reveal if already near viewport
+    const rect = p.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      p.classList.add('in-view');
+    } else {
+      io.observe(p);
+    }
+  });
+})();
+
 // Scroll reveal for the second <p> after #about (slides in from right) on all screens
 (function() {
   const target = document.querySelector('#about > p:nth-of-type(2)');

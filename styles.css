@@ -110,6 +110,14 @@ body {
   animation: slideInFromRight 900ms ease-out 60ms both;
 }
 
+/* Generic reusable paragraph slide animations for elements after #about */
+.p-slide-left { transform: translateX(-28px); opacity: 0; }
+.p-slide-right { transform: translateX(28px); opacity: 0; }
+
+/* When `in-view` is added, play the corresponding keyframe */
+.p-slide-left.in-view { animation: slideInFromLeft 900ms ease-out 60ms both; }
+.p-slide-right.in-view { animation: slideInFromRight 900ms ease-out 60ms both; }
+
 /* Desktop: animate on page load */
 @media (min-width: 769px) {
   #about { animation: slideInFromRight 900ms ease-out 200ms both; }
