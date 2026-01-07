@@ -65,6 +65,24 @@ body {
   max-width: 650px;
 }
 
+/* Slide-in on load: about section */
+#about {
+  transform: translateX(28px);
+  opacity: 0;
+  animation: slideInFromRight 900ms ease-out 200ms both;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(28px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 /* Navigation */
 .navbar {
   display: flex;
