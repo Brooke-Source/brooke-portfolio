@@ -71,12 +71,11 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
-  z-index: 10;
   width: 100%;
   gap: 20px;
+  z-index: 9999; /* or any high number */
 }
 
 .hamburger {
@@ -93,7 +92,6 @@ header,
 .section,
 .footer {
   position: relative;
-  z-index: 1;
 }
 
 .nav-links {
@@ -121,7 +119,10 @@ header,
 
   .navbar {
     gap: 20px; /* reduce huge desktop gap */
-    padding-left: 2px; /* optional: tighten left spacing */
+    padding: 5px;
+    border-radius: 0;
+    background:  #574368;
+    z-index: 9999; /* or any high number */
   }
 
    .hamburger {
@@ -146,18 +147,20 @@ header,
   .nav-links {
   display: none;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.6);
+  background: #574368;
   padding: 20px;
   position: absolute;
   top: 70px;
   right: 20px;
   border-radius: 8px;
-  backdrop-filter: blur(8px);
 }
 
 .nav-links.open {
   display: flex;
 }
+}
+
+@media (max-width: 768px) {
 
   .section {
     padding: 20px 16px;
@@ -199,19 +202,7 @@ header,
   height: 1px;
   overflow: hidden;
 }
-.skip-link:focus,
-.skip-link:active {
-  position: fixed;
-  left: 12px;
-  top: 12px;
-  width: auto;
-  height: auto;
-  padding: 10px 14px;
-  background: rgba(180, 190, 190, 0.95);
-  color: #A1C878;
-  z-index: 9999;
-  border-radius: 6px;
-}
+
 
 /* Focus-visible for keyboard users */
 a:focus-visible, button:focus-visible, input:focus-visible {
@@ -220,13 +211,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   border-radius: 4px;
 }
 
-/* Ensure interactive text contrasts well on the navbar */
-.navbar {
-  color: #A1C878;
-}
-.nav-links a {
-  color: #A1C878;
-}
 /* Lightning sidebar */
 .lightning-sidebar {
   width: 200px; /* adjust to taste */
