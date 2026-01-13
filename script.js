@@ -224,6 +224,46 @@ if (hamburger && navLinks) {
   });
 })();
 
+// Mobile-only reveal for the about image block: add `.in-view` to trigger flow-up
+(function() {
+  const imgBlock = document.querySelector('.about-image-block');
+  if (!imgBlock) return;
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  let observer = null;
+  function startObserver() {
+    if (!isMobile()) return;
+    if (observer) return;
+    const options = { root: null, threshold: 0.02, rootMargin: '0px 0px -120px 0px' };
+    observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          imgBlock.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    const rect = imgBlock.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.9) {
+      imgBlock.classList.add('in-view');
+      return;
+    }
+
+    observer.observe(imgBlock);
+  }
+
+  function stopObserver() {
+    if (observer) { observer.disconnect(); observer = null; }
+  }
+
+  window.addEventListener('load', startObserver);
+  window.addEventListener('resize', () => {
+    if (isMobile()) startObserver(); else stopObserver();
+  });
+})();
+
 // Scroll reveal for the first <p> after #about (slides in from left) on all screens
 (function() {
   const target = document.querySelector('#about > p:first-of-type');

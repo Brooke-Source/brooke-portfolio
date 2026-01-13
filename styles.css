@@ -21,9 +21,10 @@ body {
 
 /* Sections */
 .section {
-  padding: 0px;
   max-width: 900px;
   margin: 0 auto;
+  padding-left: 9px;
+  text-align: center;
 }
 
 .section:last-of-type > *:last-child {
@@ -55,6 +56,8 @@ body {
 .about-image-block img {
   height: 300px;
   border-radius: 8px;
+  transform: translateY(28px);
+  opacity: 0;
 }
 
 .about-quote {
@@ -70,6 +73,12 @@ body {
 @keyframes slideInFromRight {
   0% { transform: translateX(28px); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Flow-up animation for about image */
+@keyframes flowUp {
+  0% { transform: translateY(28px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 /* Slide-in from left (for hero) */
@@ -98,8 +107,6 @@ body {
   animation: slideInFromLeft 900ms ease-out 60ms both;
 }
 
-
-
 /* Generic reusable paragraph slide animations for elements after #about */
 .p-slide-left { transform: translateX(-28px); opacity: 0; }
 .p-slide-right { transform: translateX(28px); opacity: 0; }
@@ -111,12 +118,8 @@ body {
 /* Desktop: animate on page load */
 @media (min-width: 769px) {
   #about { animation: slideInFromRight 900ms ease-out 200ms both; }
-}
-
-/* Mobile: animate only when .in-view is added (scroll reveal) */
-  @media (max-width: 768px) {
-  /* reduce delay so mobile reveal feels snappier */
-  #about.in-view { animation: slideInFromRight 900ms ease-out 60ms both; }
+  /* flow the image up on desktop as the page loads */
+  .about-image-block img { animation: flowUp 900ms ease-out 260ms both; }
 }
 
 /* Navigation */
@@ -124,11 +127,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 0px;
   position: sticky;
   top: 0;
   width: 100%;
   gap: 20px;
-  z-index: 9999; /* or any high number */
+  z-index: 900; 
   color:#A1C878;
 }
 
@@ -140,7 +144,7 @@ header {
 }
 
 @keyframes headerSlideDown {
-  0% { transform: translateY(-16px); opacity: 0; }
+  0% { transform: translateY(-16px);opacity: 0;}
   100% { transform: translateY(0); opacity: 1; }
 }
 
@@ -168,7 +172,6 @@ header,
   list-style: none;
   display: flex;
   gap: 20px;
-  padding-right: 20px;
 }
 
 .nav-links a {
@@ -188,23 +191,33 @@ header,
 @media (max-width: 768px) {
   html { font-size: 18px; }
 
+ .lightning-container {
+    display: none;
+  }
+
+    /* reduce delay so mobile reveal feels snappier */
+  #about.in-view { animation: slideInFromRight 900ms ease-out 60ms both; }
+  /* reveal the image when its container gets `.in-view` */
+  .about-image-block.in-view img { animation: flowUp 900ms ease-out 60ms both; }
+
   .navbar {
     gap: 20px; /* reduce huge desktop gap */
     padding: 5px;
     border-radius: 0;
     background:  #574368;
-    z-index: 9999; /* or any high number */
+    z-index: 950; /* or any high number */
+    position: relative; 
   }
 
    .hamburger {
     display: block;
     margin-left: auto;
+    position: relative;
+    z-index: 1000; /* above nav-links */
   }
 
   /* keep existing background and spacing; single slide-from-right rule */
-  .navbar { position: relative; }
-  .hamburger { position: relative; z-index: 1002; }
-
+  
   .nav-links {
     list-style: none;
     display: flex;
@@ -212,28 +225,25 @@ header,
     gap: 12px;
     background: #574368; /* unchanged */
     padding: 20px;       /* unchanged */
-    position: absolute;
+    position: fixed;
     top: 70px;           /* unchanged */
     right: 0;            /* flush with the page edge */
     border-radius: 8px;
-    transform: translateX(18px); /* start slightly to the right */
+    transform: translateX(100%);
     opacity: 0;
     pointer-events: none;
     transition: transform 520ms cubic-bezier(.2,.9,.3,1), opacity 480ms ease;
-    z-index: 1000; /* below hamburger */
+    z-index: 960; /* below hamburger */
   }
+
+  html, body {
+  overflow-x: hidden;
+}
 
   .nav-links.open {
     transform: translateX(0);
     opacity: 1;
     pointer-events: auto;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .section {
-    padding: 20px 16px;
   }
 }
 
@@ -272,7 +282,6 @@ header,
   height: 1px;
   overflow: hidden;
 }
-
 
 /* Focus-visible for keyboard users */
 a:focus-visible, button:focus-visible, input:focus-visible {
@@ -400,7 +409,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   pointer-events: none;
   transform: translate(-50%, -50%);
   animation: sparkleDown 760ms cubic-bezier(.22,.9,.36,1) forwards;
-}
+} 
 
 @keyframes sparkleDown {
   0% {
@@ -419,6 +428,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     filter: blur(1.2px) saturate(90%);
   }
 }
+
 /* Footer */
 .footer {
   padding: 5px;
