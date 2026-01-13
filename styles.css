@@ -45,7 +45,7 @@ body {
 .about-row {
   display: flex;
   align-items: flex-start;
-  gap: 40px;
+  gap: 30px;
 }
 
 .about-text-block {
@@ -180,6 +180,7 @@ header,
   font-weight: bold;
 }
 
+
 /* Layout container */
 .page-layout {
   display: flex;
@@ -230,7 +231,7 @@ header,
     right: 0;            /* flush with the page edge */
     border-radius: 8px;
     transform: translateX(100%);
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
     transition: transform 520ms cubic-bezier(.2,.9,.3,1), opacity 480ms ease;
     z-index: 960; /* below hamburger */
@@ -244,6 +245,12 @@ header,
     transform: translateX(0);
     opacity: 1;
     pointer-events: auto;
+  }
+
+  /* Push content below header when menu opens (mobile only) */
+  body.menu-open .content-area header + * {
+    margin-top: var(--nav-offset, 0px);
+    transition: margin-top 520ms cubic-bezier(.2,.9,.3,1);
   }
 }
 
@@ -445,3 +452,4 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .footer.in-view {
   animation: footerFadeInLeft 900ms cubic-bezier(.2,.9,.3,1) 60ms both;
 }
+

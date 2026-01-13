@@ -179,6 +179,23 @@ if (hamburger && navLinks) {
   hamburger.addEventListener('click', () => {
     const isOpen = navLinks.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    // Push content down under the mobile nav when open; revert on close
+    if (isOpen) {
+      document.body.classList.add('menu-open');
+      const navHeight = navLinks.scrollHeight;
+      document.documentElement.style.setProperty('--nav-offset', navHeight + 'px');
+    } else {
+      document.body.classList.remove('menu-open');
+      document.documentElement.style.removeProperty('--nav-offset');
+    }
+  });
+
+  // Recompute offset on resize while menu is open (mobile only)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768 && navLinks.classList.contains('open')) {
+      const navHeight = navLinks.scrollHeight;
+      document.documentElement.style.setProperty('--nav-offset', navHeight + 'px');
+    }
   });
 }
 
@@ -414,3 +431,4 @@ if (hamburger && navLinks) {
     }
   }
 })();
+
