@@ -33,7 +33,10 @@ body {
 }
 
 .about-row-bg {
-  background:rgba(56, 47, 89, 0.2);  /* solid background color */
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(var(--light-rgb),0.02), transparent 8%),
+              radial-gradient(900px 500px at 80% 80%, rgba(var(--light-rgb),0.01), transparent 12%),
+              linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(105,102,113,0.98));
+  color: #000000;
   backdrop-filter: blur(10px);           /* the actual glass blur */
   -webkit-backdrop-filter: blur(10px);   /* Safari support */
   border: 1px solid rgba(255, 255, 255, 0.945);
@@ -156,6 +159,19 @@ header {
     opacity: 0;
     transform: translateX(-140px); /* start well off the left edge */
     z-index: 1005; /* draw above nav content and hamburger so it can extend into page */
+  }
+
+  /* Desktop: hide the mobile nav-art and show a desktop art beside the logo */
+  /* hide desktop art by default so it does not appear on mobile */
+  .nav-art-desktop { display: none; }
+  @media (min-width: 769px) {
+    .nav-links .nav-art { display: none !important; }
+    .nav-art-desktop { display: block; pointer-events: none; order: -1; margin-right: 12px; }
+    .nav-art-desktop img { width: 56px; height: auto; display: block; border-radius: 6px; box-shadow: 0 6px 18px rgba(105,102,113,0.98); }
+    /* group logo + art at the left and push nav-links to the right */
+    .navbar { align-items: center; justify-content: flex-start; }
+    .logo { display: inline-flex; align-items: center; }
+    .nav-links { margin-left: auto; }
   }
 
 
