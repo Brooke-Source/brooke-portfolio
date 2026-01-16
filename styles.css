@@ -22,7 +22,7 @@ body {
 /* Sections */
 .section {
   max-width: 900px;
-  margin: 0 auto;
+  margin-right: 9px;
   padding-left: 9px;
   text-align: center;
 }
@@ -39,7 +39,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.945);
   border-radius: 12px;
   box-shadow: 20px rgba(0, 0, 0, 0.1);
-  padding: 20px
+  padding: 20px;
+
 }
 
 .about-row {
