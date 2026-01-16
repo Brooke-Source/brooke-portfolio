@@ -301,7 +301,7 @@ header,
 
   /* Push content below header when menu opens (mobile only) */
   body.menu-open .content-area header + * {
-    margin-top: var(--nav-offset, 0px);
+    margin-top: calc(var(--nav-offset, 0px) - 60px);
     transition: margin-top 520ms cubic-bezier(.2,.9,.3,1);
   }
 }
