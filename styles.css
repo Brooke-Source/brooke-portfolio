@@ -165,7 +165,7 @@ header {
     width: 100%;
     height: auto;
     border-radius: 6px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    box-shadow: 0 6px 18px rgba(105,102,113,0.98);
   }
 
   /* Animate the image in from the left when nav opens */
@@ -247,7 +247,6 @@ header,
     gap: 20px; /* reduce huge desktop gap */
     padding: 5px;
     border-radius: 0;
-    background:  #574368;
     z-index: 950; /* or any high number */
     position: relative; 
   }
@@ -275,7 +274,6 @@ header,
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: #574368; /* unchanged */
     padding: 10px;       /* unchanged */
     position: fixed;
     top: 70px;           /* unchanged */
