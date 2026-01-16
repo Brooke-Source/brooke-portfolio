@@ -222,6 +222,23 @@ header,
   font-weight: bold;
 }
 
+/* Hover/focus effect for nav link text: glowing shadow instead of box shadow */
+.nav-links a {
+  /* keep inline layout but target text glow on hover */
+  transition: text-shadow 220ms cubic-bezier(.2,.9,.3,1), color 180ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  /* single subtle shadow behind text for improved clarity */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a { transition: none !important; }
+  .nav-links a:hover, .nav-links a:focus-visible { text-shadow: none !important; }
+}
+
 
 /* Layout container */
 .page-layout {
