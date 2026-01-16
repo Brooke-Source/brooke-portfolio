@@ -144,6 +144,47 @@ header {
   animation: headerSlideDown 900ms ease-out 60ms both;
 }
 
+  /* Decorative nav image (mobile only) */
+  .nav-links .nav-art {
+    list-style: none;
+    position: absolute;
+    bottom: -2px; /* sits above the bottom edge of the slide-out */
+    left: 0; /* flush to the left edge of the slide-out */
+    width: 88px;
+    height: auto;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-140px); /* start well off the left edge */
+    z-index: 1005; /* draw above nav content and hamburger so it can extend into page */
+  }
+
+
+
+  .nav-links .nav-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+
+  /* Animate the image in from the left when nav opens */
+  .nav-links.open .nav-art {
+    animation: navImgIn 360ms cubic-bezier(.2,.9,.3,1) 40ms both;
+  }
+
+  @keyframes navImgIn {
+    0% { opacity: 0; transform: translateX(-140px) scale(0.98); }
+    60% { opacity: 1; transform: translateX(-80px) scale(1.03); }
+    100% { opacity: 1; transform: translateX(-100px) scale(1); }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-links .nav-art,
+    .nav-links.open .nav-art { animation: none !important; opacity: 1; transform: none; }
+  }
+
 @keyframes headerSlideDown {
   0% { transform: translateY(-16px);opacity: 0;}
   100% { transform: translateY(0); opacity: 1; }
