@@ -210,6 +210,15 @@ header,
     position: relative; 
   }
 
+  /* Logo animation when mobile menu opens */
+  .navbar .logo {
+    transition: transform 720ms cubic-bezier(.2,.9,.3,1);
+    transform-origin: top left;
+  }
+  body.menu-open .navbar .logo {
+    transform: translateY(10px) scale(0.8);
+  }
+
    .hamburger {
     display: block;
     margin-left: auto;
@@ -225,11 +234,12 @@ header,
     flex-direction: column;
     gap: 12px;
     background: #574368; /* unchanged */
-    padding: 20px;       /* unchanged */
+    padding: 10px;       /* unchanged */
     position: fixed;
     top: 70px;           /* unchanged */
     right: 0;            /* flush with the page edge */
-    border-radius: 8px;
+    border-radius: 3px;
+    border-style: solid;
     transform: translateX(100%);
     opacity: 1;
     pointer-events: none;
