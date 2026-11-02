@@ -73,12 +73,33 @@ body {
   max-width: 650px;
 }
 
+
 /* Slide-in animation keyframes */
 @keyframes slideInFromRight {
   0% { transform: translateX(28px); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
 }
+.slide-up {
+    max-width: 100%;
+    height: auto;
 
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.responsive-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
 /* Flow-up animation for about image */
 @keyframes flowUp {
   0% { transform: translateY(28px); opacity: 0; }
@@ -332,7 +353,7 @@ header,
 
   /* Push content below header when menu opens (mobile only) */
   body.menu-open .content-area header + * {
-    margin-top: calc(var(--nav-offset, 0px) - 60px);
+    margin-top: calc(var(--nav-offset, 0px) - 20px);
     transition: margin-top 520ms cubic-bezier(.2,.9,.3,1);
   }
 }
