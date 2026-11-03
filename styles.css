@@ -557,3 +557,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   animation: footerFadeInLeft 900ms cubic-bezier(.2,.9,.3,1) 60ms both;
 }
 
+
+.project-list {
+    padding-left: 20px;
+    margin-left: 0;
+}
