@@ -187,7 +187,7 @@ header {
   .nav-art-desktop { display: none; }
   @media (min-width: 769px) {
     .nav-links .nav-art { display: none !important; }
-    .nav-art-desktop { display: block; pointer-events: none; order: -1; margin-right: 12px; }
+    .nav-art-desktop { display: block; order: -1; margin-right: 12px; }
     .nav-art-desktop img { width: 56px; height: auto; display: block; border-radius: 6px; box-shadow: 0 6px 18px rgba(105,102,113,0.98); }
     /* group logo + art at the left and push nav-links to the right */
     .navbar { align-items: center; justify-content: flex-start; }
@@ -562,3 +562,4 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     padding-left: 20px;
     margin-left: 0;
 }
+
